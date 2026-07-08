@@ -1,0 +1,149 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <div class="lg:col-span-4 space-y-6">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300">
+            <div class="bg-gradient-to-r from-brand to-brandHover h-32 relative">
+                <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+            </div>
+            
+            <div class="px-6 pb-6 relative text-center -mt-16">
+                <div class="w-32 h-32 mx-auto bg-white dark:bg-slate-800 rounded-full flex items-center justify-center border-[6px] border-slate-50 dark:border-slate-900 shadow-xl relative z-10 transition-transform hover:scale-105 duration-300">
+                    <span class="text-5xl font-extrabold text-brand">{{ profile.user.username|make_list|first|upper }}</span>
+                </div>
+                
+                <h2 class="mt-4 text-3xl font-extrabold text-slate-800 dark:text-white tracking-tight">{{ profile.user.username }}</h2>
+                <div class="flex justify-center items-center space-x-2 mt-2">
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-gray-300 rounded-full text-xs font-bold tracking-wider uppercase shadow-sm border border-slate-200 dark:border-slate-600">{{ profile.role }}</span>
+                    <span class="px-3 py-1 bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full text-xs font-bold shadow-sm border border-red-100 dark:border-red-800">{{ profile.blood_group }}</span>
+                </div>
+
+                <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6 text-left space-y-4 text-sm">
+                    {% if profile.role == 'Donor' %}
+                        <div class="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                            <span class="text-slate-500 dark:text-gray-400 font-medium">Pledged Organ</span>
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded-md">{{ profile.organ_pledge }}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                            <span class="text-slate-500 dark:text-gray-400 font-medium">Donor ID</span>
+                            <span class="font-mono font-bold bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-slate-600">{{ profile.donor_id }}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                            <span class="text-slate-500 dark:text-gray-400 font-medium">Status Badge</span>
+                            <span class="font-bold text-brand dark:text-blue-400">{{ profile.badge }}</span>
+                        </div>
+                    {% else %}
+                        <div class="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                            <span class="text-slate-500 dark:text-gray-400 font-medium">Requested Organ</span>
+                            <span class="font-bold text-red-600 bg-red-50 px-2 py-1 rounded-md">{{ profile.organ_pledge }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                        <span class="text-slate-500 dark:text-gray-400 font-medium">Location</span>
+                        <span class="font-semibold text-slate-800 dark:text-gray-200">{{ profile.city }}</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    {% if profile.role == 'Donor' %}
+                        <p class="text-xs text-slate-400 dark:text-gray-500 font-bold mb-3 uppercase tracking-wider">Digital ID Key</p>
+                        {% if profile.qr_code %}
+                            <div class="p-3 bg-white rounded-2xl inline-block shadow-md border border-gray-200">
+                                <img src="{{ profile.qr_code.url }}" alt="QR Code" class="w-32 h-32"/>
+                            </div>
+                        {% else %}
+                            <div class="w-full py-8 bg-slate-50 dark:bg-slate-700 rounded-xl border-2 border-dashed border-slate-300 dark:border-gray-600 text-slate-400 font-medium text-sm">
+                                QR Key Pending
+                            </div>
+                        {% endif %}
+                        <a href="{% url 'certificate' %}" class="mt-6 block w-full py-3 bg-white hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-gray-200 text-sm font-bold rounded-xl transition border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow">
+                            View Official Certificate
+                        </a>
+                    {% else %}
+                        <div class="p-4 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs rounded-xl border border-amber-200 dark:border-amber-800 shadow-sm">
+                            <strong class="block mb-1">Recipient Notice</strong> Use the Organ Request panel to track your status.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-8 space-y-8">
+        
+        <div>
+            <h3 class="text-2xl font-extrabold text-slate-800 dark:text-white mb-5 tracking-tight">Operations Center</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                
+                <a href="{% url 'create_request' %}" class="group relative bg-gradient-to-br from-white to-red-50/80 dark:from-slate-800 dark:to-slate-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-red-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-4 -mt-4 w-20 h-20 bg-red-100 dark:bg-red-900/40 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-500"></div>
+                    <svg class="w-10 h-10 text-red-500 mb-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <h4 class="font-extrabold text-slate-800 dark:text-white relative z-10 text-lg">Raise Urgent</h4>
+                    <p class="text-sm text-slate-500 dark:text-gray-400 relative z-10 font-medium mt-1">Blood or Organ Request</p>
+                </a>
+
+                <a href="{% url 'pledge_organ' %}" class="group relative bg-brand p-6 rounded-2xl shadow-md border border-transparent hover:bg-brandHover hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-4 -mt-4 w-20 h-20 bg-white/10 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-500"></div>
+                    <svg class="w-10 h-10 mb-4 relative z-10 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <h4 class="font-extrabold text-white relative z-10 text-lg">Pledge Organ</h4>
+                    <p class="text-sm text-blue-100 relative z-10 font-medium mt-1">Register as a donor</p>
+                </a>
+
+                <a href="{% url 'search_donors' %}" class="group relative bg-gradient-to-br from-white to-blue-50/80 dark:from-slate-800 dark:to-slate-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-brand hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-4 -mt-4 w-20 h-20 bg-blue-100 dark:bg-blue-900/20 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-500"></div>
+                    <svg class="w-10 h-10 text-brand dark:text-blue-400 mb-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    <h4 class="font-extrabold text-slate-800 dark:text-white relative z-10 text-lg">Find Donors</h4>
+                    <p class="text-sm text-slate-500 dark:text-gray-400 relative z-10 font-medium mt-1">Search live map</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-800/50 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Your Recent Requests</h3>
+            </div>
+            
+            <div class="p-0">
+                {% if requests %}
+                    <ul class="divide-y divide-gray-100 dark:divide-gray-700">
+                        {% for r in requests|slice:":5" %}
+                            <li class="p-6 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition duration-150">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 dark:text-white flex items-center gap-3 text-lg">
+                                            {{ r.patient_name }} 
+                                            <span class="px-2.5 py-1 bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 rounded-md text-xs font-bold border border-red-200 dark:border-red-800 shadow-sm">{{ r.blood_group }}</span>
+                                        </h4>
+                                        <p class="text-sm text-slate-500 dark:text-gray-400 mt-1.5 flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                            {{ r.hospital_details }}
+                                        </p>
+                                    </div>
+                                    <div class="shrink-0">
+                                        <span class="px-4 py-1.5 text-xs font-bold rounded-full shadow-sm border 
+                                            {% if r.status == 'Pending' %}bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-800
+                                            {% else %}bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:border-emerald-800{% endif %}">
+                                            {{ r.status }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="p-12 text-center">
+                        <div class="w-20 h-20 mx-auto bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-5 shadow-inner">
+                            <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <p class="text-slate-600 dark:text-gray-300 font-bold text-lg">No active requests found.</p>
+                        <p class="text-sm text-slate-400 dark:text-gray-500 mt-2 max-w-xs mx-auto">When you raise an urgent blood or organ request, it will appear here for tracking.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

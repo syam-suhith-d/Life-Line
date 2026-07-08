@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Connect, Donate, Save</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: { colors: { brand: '#004080', brandHover: '#003366' } }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            input[type="text"], input[type="password"], input[type="email"], input[type="number"], select, textarea, .form-control {
+                @apply w-full px-4 py-3 mt-1 border-2 border-gray-300 bg-gray-50 text-gray-900 rounded-xl outline-none transition-all duration-200 !important;
+            }
+            input:focus, select:focus, textarea:focus {
+                @apply border-blue-600 bg-white shadow-md !important;
+            }
+            .dark input, .dark select, .dark textarea {
+                @apply border-gray-600 bg-slate-700 text-white !important;
+            }
+            .dark input:focus, .dark select:focus, .dark textarea:focus {
+                @apply border-blue-400 bg-slate-800 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans antialiased transition-colors duration-300 overflow-hidden">
+
+    <div class="flex h-screen overflow-hidden">
+        
+<aside id="global-sidebar" class="w-64 bg-white dark:bg-slate-800 border-r-2 border-gray-300 dark:border-slate-700 flex flex-col flex-shrink-0 shadow-sm z-30 transition-all duration-300 relative overflow-visible">            
+            <button id="sidebar-toggle" class="absolute -right-3.5 top-28 bg-white dark:bg-slate-700 border border-gray-200 dark:border-gray-600 rounded-full p-1.5 shadow-md text-gray-500 hover:text-brand dark:text-gray-400 dark:hover:text-blue-400 z-[60] focus:outline-none transition-transform hover:scale-110">
+                <svg id="sidebar-chevron" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+            <div class="h-16 flex items-center px-6 border-b border-blue-50 dark:border-gray-700 whitespace-nowrap overflow-hidden">
+                <a href="{% url 'home' %}" class="flex items-center gap-3 text-2xl font-extrabold text-brand dark:text-white tracking-tight">
+                    <svg class="w-7 h-7 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="sidebar-text transition-opacity duration-300">LifeLink<span class="text-red-500">.</span></span>
+                </a>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-1.5 mt-2 custom-scrollbar">
+                <p class="sidebar-text px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 transition-opacity duration-300 whitespace-nowrap">Platform</p>
+                
+                <a href="{% url 'home' %}" title="Home" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                    <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Home</span>
+                </a>
+                
+            
+                
+                <a href="{% url 'compatibility' %}" title="Compatibility" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                    <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Compatibility</span>
+                </a>
+
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'search_donors' %}" title="Find Donors" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                        <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                        <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Find Donors Map</span>
+                    </a>
+
+                    <a href="{% url 'book_slot' %}" title="Book Donation Slot" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                        <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Book Donation Slot</span>
+                    </a>
+                {% endif %}
+
+                <!-- New: Eligibility Checker Link -->
+                <a href="{% url 'smart_checker' %}" title="Check Eligibility" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                    <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Check Eligibility</span>
+                </a>
+                
+                <p class="sidebar-text px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-6 mb-3 transition-opacity duration-300 whitespace-nowrap">More</p>
+
+                <a href="{% url 'about' %}" title="About" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                    <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">About Us</span>
+                </a>
+
+                <a href="{% url 'contact' %}" title="Contact Support" class="flex items-center gap-4 px-3 py-3 text-sm font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-brand dark:hover:text-white transition-colors group">
+                    <svg class="w-6 h-6 flex-shrink-0 text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <span class="sidebar-text whitespace-nowrap transition-opacity duration-300">Contact Support</span>
+                </a>
+            </div>
+        </aside>
+
+        <script>
+            if (localStorage.getItem('sidebar-state') === 'closed') {
+                const sb = document.getElementById('global-sidebar');
+                const chevron = document.getElementById('sidebar-chevron');
+                const texts = document.querySelectorAll('.sidebar-text');
+                
+                sb.classList.remove('w-64');
+                sb.classList.add('w-20');
+                chevron.classList.add('rotate-180');
+                texts.forEach(el => {
+                    el.classList.add('opacity-0', 'hidden');
+                });
+            }
+        </script>
+
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+            
+            <div class="bg-red-600 text-white text-center py-2.5 font-bold tracking-wide text-xs md:text-sm z-50 shadow-sm flex-shrink-0">
+                <span class="text-blue-500 animate-pulse mr-2 text-lg leading-none">●</span> 
+                EMERGENCY HELPLINE: Call <span class="font-bold text-white">104</span> / <span class="font-bold text-white">108</span> — LifeLink Official Healthcare Response
+            </div>
+
+            <header class="h-16 bg-white/90 backdrop-blur-md dark:bg-slate-800/95 border-b-2 border-blue-100 dark:border-slate-700 flex items-center justify-between px-6 z-40 flex-shrink-0 transition-colors duration-300 shadow-sm">
+                
+                <div class="hidden sm:flex items-center text-sm font-bold text-gray-500 dark:text-gray-400">
+                    <span class="text-brand dark:text-blue-400 mr-2">✦</span> LifeLink Command Center
+                </div>
+
+                <div class="flex items-center space-x-3 sm:space-x-5">
+                    
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'search_donors' %}" method="GET" class="hidden md:flex relative group w-64 lg:w-80 h-10">
+                            <input type="text" name="q" placeholder="Quick donor search..." class="w-full pl-5 pr-12 py-2 bg-slate-50 dark:bg-slate-700/50 border border-gray-200 dark:border-transparent rounded-full text-sm font-medium focus:bg-white focus:border-brand focus:ring-2 focus:ring-blue-100 dark:focus:bg-slate-900 transition-all outline-none text-slate-800 dark:text-white shadow-inner focus:shadow-sm">
+                            <button type="submit" class="absolute right-1 top-1 bottom-1 px-3 bg-brand hover:bg-brandHover rounded-full text-white flex items-center justify-center transition-colors shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    <button id="theme-toggle" type="button" title="Toggle Theme" class="p-2 text-gray-500 hover:bg-blue-50 dark:text-gray-400 dark:hover:bg-slate-700 rounded-full transition-colors focus:outline-none">
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+
+                    {% if user.is_authenticated %}
+                        <div class="relative group">
+                            <button class="p-2 text-gray-500 hover:bg-blue-50 dark:text-gray-400 dark:hover:bg-slate-700 rounded-full transition-colors relative focus:outline-none">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-800 animate-pulse"></span>
+                            </button>
+                            
+                            <div class="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-50">
+                                <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 rounded-t-2xl">
+                                    <h4 class="text-sm font-extrabold text-slate-800 dark:text-white">Notifications</h4>
+                                    <span class="text-xs text-brand dark:text-blue-400 font-bold cursor-pointer hover:underline">Mark all read</span>
+                                </div>
+                                <div class="max-h-80 overflow-y-auto">
+                                    <div class="p-4 border-b border-gray-50 dark:border-gray-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition cursor-pointer flex gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 text-brand dark:text-blue-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-slate-700 dark:text-gray-200 font-medium leading-tight">A new compatible donor registered near your location.</p>
+                                            <p class="text-xs text-gray-400 mt-1.5 font-semibold">2 mins ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+
+                    {% if user.is_authenticated %}
+                        <!-- New: Dashboard Button -->
+                        <a href="{% url 'dashboard' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold text-brand dark:text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-full transition shadow-sm border border-blue-100 dark:border-slate-700 mr-2">
+                            Dashboard
+                        </a>
+                        <a href="{% url 'logout' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 dark:text-red-400 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-full transition shadow-sm border border-red-100 dark:border-red-900/50 mr-1">
+                            Sign Out
+                        </a>
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-brandHover text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-white dark:border-slate-700 cursor-pointer hover:scale-105 transition-transform" title="Logged in as {{ user.username }}">
+                            {{ user.username|make_list|first|upper }}
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-sm font-bold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition px-2">Sign In</a>
+                        <a href="{% url 'register' %}" class="hidden sm:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-brand rounded-full hover:bg-brandHover transition shadow-md hover:-translate-y-0.5 transform">Join Now</a>
+                    {% endif %}
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-y-auto flex flex-col relative bg-slate-50 dark:bg-slate-900">
+                
+                <div class="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full">
+                    
+                    {% if messages %}
+                        <div id="toast-container" class="fixed top-28 right-5 z-[100] flex flex-col gap-3">
+                            {% for message in messages %}
+                                <div class="toast-message flex items-center w-full max-w-sm p-4 text-gray-700 bg-white rounded-xl shadow-xl dark:text-gray-200 dark:bg-slate-800 border-l-4 {% if message.tags == 'error' %}border-red-500{% else %}border-green-500{% endif %} transform transition-all duration-500 translate-x-0 opacity-100" role="alert">
+                                    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg {% if message.tags == 'error' %}text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200{% else %}text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200{% endif %}">
+                                        {% if message.tags == 'error' %}
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {% else %}
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ms-3 text-sm font-medium mr-4">{{ message }}</div>
+                                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-slate-800 dark:hover:bg-slate-700 transition" onclick="this.parentElement.remove()">
+                                        <svg class="w-3 h-3" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                // Find all toast messages
+                                const toasts = document.querySelectorAll('.toast-message');
+                                
+                                if (toasts.length > 0) {
+                                    // Wait for 7 seconds (7000ms)
+                                    setTimeout(() => {
+                                        toasts.forEach(toast => {
+                                            // Animate out
+                                            toast.classList.remove('translate-x-0', 'opacity-100');
+                                            toast.classList.add('translate-x-full', 'opacity-0');
+                                            
+                                            // Remove from DOM after animation
+                                            setTimeout(() => toast.remove(), 500);
+                                        });
+                                    }, 7000); 
+                                }
+                            });
+                        </script>
+                    {% endif %}
+
+                    {% block content %}{% endblock %}
+                </div>
+
+                <footer class="mt-auto bg-slate-900 border-t-4 border-brand py-8 transition-colors duration-300">
+                    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p class="text-sm font-medium text-slate-400">
+                            &copy; 2026 | All rights Reserved @Aditya MCA Best Girls Batch
+                        </p>
+                        <div class="flex space-x-6 text-sm font-bold text-slate-400">
+                            <a href="{% url 'about' %}" class="hover:text-white transition">About</a>
+                            <a href="{% url 'contact' %}" class="hover:text-white transition">Contact Support</a>
+                            <a href="{% url 'privacy_terms' %}" class="hover:text-white transition">Privacy & Terms</a>
+                        </div>
+                    </div>
+                </footer>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle Logic
+        const sidebar = document.getElementById('global-sidebar');
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+        const sidebarChevron = document.getElementById('sidebar-chevron');
+        const sidebarTexts = document.querySelectorAll('.sidebar-text');
+
+        sidebarToggleBtn.addEventListener('click', () => {
+            // Toggle classes
+            sidebar.classList.toggle('w-64');
+            sidebar.classList.toggle('w-20');
+            sidebarChevron.classList.toggle('rotate-180');
+            
+            // Save state to memory
+            const isClosed = sidebar.classList.contains('w-20');
+            localStorage.setItem('sidebar-state', isClosed ? 'closed' : 'open');
+            
+            // Handle text fading
+            sidebarTexts.forEach(el => {
+                if (isClosed) {
+                    el.classList.add('opacity-0');
+                    setTimeout(() => el.classList.add('hidden'), 150);
+                } else {
+                    el.classList.remove('hidden');
+                    setTimeout(() => el.classList.remove('opacity-0'), 10);
+                }
+            });
+        });
+
+        // Theme Toggle Logic
+        var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        var themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

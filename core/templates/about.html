@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    
+    <div class="max-w-6xl w-full bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300">
+        
+        <div class="bg-gradient-to-br from-brand to-brandHover px-8 py-16 relative overflow-hidden text-center">
+            <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+            
+            <div class="relative z-10 max-w-3xl mx-auto">
+                <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl backdrop-blur-md mb-6 border border-white/20 shadow-lg">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Medical & Healthcare <br/><span class="text-blue-200">Awareness Center</span></h1>
+                <p class="text-lg text-blue-100 font-medium leading-relaxed">
+                    Empowering our community with vital medical knowledge. Understand the science, dispel the myths, and see the real-world impact of your contributions.
+                </p>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-12 bg-slate-50 dark:bg-slate-900/50">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border-t-4 border-t-red-500 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group">
+                    <div class="w-14 h-14 bg-red-50 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <span class="inline-block px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-red-200 dark:border-red-800">Blood Donation</span>
+                    <h3 class="text-xl font-extrabold text-slate-800 dark:text-white mb-3">The Science Behind It</h3>
+                    <p class="text-slate-500 dark:text-gray-400 leading-relaxed text-sm">
+                        Donating just one unit of blood can save up to three lives. The blood is separated into red cells, plasma, and platelets, supporting community health and emergency readiness globally.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border-t-4 border-t-blue-500 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group">
+                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-blue-200 dark:border-blue-800">Organ Pledge</span>
+                    <h3 class="text-xl font-extrabold text-slate-800 dark:text-white mb-3">Myths vs. Facts</h3>
+                    <p class="text-slate-500 dark:text-gray-400 leading-relaxed text-sm">
+                        A common myth is that medical conditions prevent donation. In reality, very few conditions automatically disqualify donors. Specialized medical teams evaluate viability at the time of donation.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border-t-4 border-t-amber-500 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group">
+                    <div class="w-14 h-14 bg-amber-50 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-amber-200 dark:border-amber-800">Emergency Grid</span>
+                    <h3 class="text-xl font-extrabold text-slate-800 dark:text-white mb-3">Platelets & Transfusion</h3>
+                    <p class="text-slate-500 dark:text-gray-400 leading-relaxed text-sm">
+                        Platelets have a very short shelf life and are crucial for supporting critical care patients, such as those undergoing cancer treatments. Timely and consistent donor availability is essential.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="p-8 md:px-12 md:py-10 bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+                <h4 class="text-xl font-extrabold text-slate-800 dark:text-white">Ready to make a difference?</h4>
+                <p class="text-sm text-slate-500 dark:text-gray-400 mt-1">Join the LifeLink network today and become a certified donor.</p>
+            </div>
+            <div class="flex-shrink-0 w-full sm:w-auto">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'pledge_organ' %}" class="block w-full sm:w-auto px-8 py-3.5 bg-brand hover:bg-brandHover text-white font-bold rounded-xl shadow-md transform hover:-translate-y-0.5 transition-all text-center">Pledge Now</a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="block w-full sm:w-auto px-8 py-3.5 bg-brand hover:bg-brandHover text-white font-bold rounded-xl shadow-md transform hover:-translate-y-0.5 transition-all text-center">Join LifeLink</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

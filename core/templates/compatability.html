@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="flex flex-col items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    
+    <div class="max-w-4xl w-full bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300">
+        
+        <div class="bg-gradient-to-r from-brand to-brandHover px-8 py-8 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+            <div class="relative z-10 flex items-center gap-4">
+                <div class="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-white tracking-tight">Biological Phenotype Matrix</h3>
+                    <p class="text-blue-100 text-sm mt-1">Select a blood group to view medical compatibility and live donor counts.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-10">
+            <form method="GET" action="{% url 'compatibility' %}" class="flex flex-col sm:flex-row gap-4 mb-2">
+                <div class="flex-grow">
+                    <select name="blood_group" class="form-select text-lg font-bold !py-3.5 !rounded-xl cursor-pointer">
+                        <option value="">Select a Blood Group Type...</option>
+                        {% for bg in blood_groups %}
+                            <option value="{{ bg }}" {% if selected_bg == bg %}selected{% endif %}>Blood Group: {{ bg }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="sm:w-auto w-full px-10 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Analyze
+                </button>
+            </form>
+
+            {% if results %}
+                <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-700 animate-fade-in-up">
+                    <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
+                        Compatibility Report for: 
+                        <span class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-lg border border-red-200 dark:border-red-800 shadow-sm text-2xl">{{ selected_bg }}</span>
+                    </h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        
+                        <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-6 border border-emerald-200 dark:border-emerald-800/50 shadow-sm hover:shadow-md transition duration-300">
+                            <div class="flex items-center mb-4 text-emerald-700 dark:text-emerald-400">
+                                <div class="bg-emerald-100 dark:bg-emerald-800/50 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                </div>
+                                <h5 class="font-extrabold text-lg">Can SAFELY Receive From</h5>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                {% for item in results.receive %}
+                                    <span class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-gray-200 font-bold text-lg rounded-xl shadow-sm border border-emerald-200 dark:border-emerald-700">{{ item }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800/50 shadow-sm hover:shadow-md transition duration-300">
+                            <div class="flex items-center mb-4 text-blue-700 dark:text-blue-400">
+                                <div class="bg-blue-100 dark:bg-blue-800/50 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                </div>
+                                <h5 class="font-extrabold text-lg">Can SAFELY Donate To</h5>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                {% for item in results.give %}
+                                    <span class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-gray-200 font-bold text-lg rounded-xl shadow-sm border border-blue-200 dark:border-blue-700">{{ item }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start sm:items-center bg-slate-50 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm">
+                        <div class="flex-shrink-0 mr-5">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 border-2 border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center font-extrabold text-2xl shadow-sm">
+                                {{ available_count }}
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-slate-800 dark:text-white text-lg">Live Compatible Donors Available</h5>
+                            <p class="text-sm text-slate-500 dark:text-gray-400 mt-1">This count reflects actively registered donors whose blood groups are biologically compatible with the selected group.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto my-10 bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-colors duration-300 animate-fade-in-up">
+    
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 px-10 py-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        
+        <div class="relative z-10">
+            <span class="bg-brand text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 inline-block">Legal Hub</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">Privacy Policy & Terms of Service</h1>
+            <p class="text-slate-400 text-sm font-medium">Last Updated: October 2026 • LifeLink Command Center</p>
+        </div>
+    </div>
+
+    <div class="p-10 md:p-14 text-slate-600 dark:text-gray-300 space-y-12">
+        
+        <section>
+            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-6 flex items-center border-b border-gray-100 dark:border-slate-700 pb-4">
+                <svg class="w-6 h-6 text-brand dark:text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                1. Privacy Policy & Data Security
+            </h2>
+            
+            <div class="space-y-6 text-sm md:text-base leading-relaxed font-medium">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">1.1 Information We Collect</h3>
+                    <p>When you register for the LifeLink Network, we collect necessary personal and medical data, including but not limited to: your full name, location, contact information, blood type, medical history (for eligibility), and organ pledge status. This data is strictly used for the purpose of matching donors with recipients.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">1.2 Medical Data Encryption</h3>
+                    <p>We treat your medical data with the highest level of security. All biological phenotype data, blood groups, and eligibility records are encrypted at rest and in transit. We adhere strictly to national health data protection standards to ensure your privacy is never compromised.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">1.3 Third-Party Disclosure</h3>
+                    <p>LifeLink does <strong class="text-red-500 dark:text-red-400">not</strong> sell, trade, or rent your personal identification information to others. Your information is only shared with verified, registered healthcare providers, hospitals, and emergency response teams (such as 104/108 operators) strictly during active donation matches or emergencies.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-6 flex items-center border-b border-gray-100 dark:border-slate-700 pb-4">
+                <svg class="w-6 h-6 text-brand dark:text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                2. Terms of Service
+            </h2>
+            
+            <div class="space-y-6 text-sm md:text-base leading-relaxed font-medium">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">2.1 Eligibility and Honesty</h3>
+                    <p>By using LifeLink, you agree to provide accurate, current, and complete information regarding your health and eligibility. Providing false medical information poses a severe risk to potential recipients. Users found submitting fraudulent health data will be permanently banned and reported to relevant medical authorities.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">2.2 Medical Disclaimer</h3>
+                    <p>LifeLink is a coordination and routing platform, not a healthcare provider. The "Smart Eligibility Checker" provides estimates based on standard parameters but does not replace professional medical advice. Final eligibility for blood or organ donation is determined exclusively by certified medical personnel at the time of donation.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 mb-2">2.3 Non-Commercial Use</h3>
+                    <p>LifeLink is strictly a voluntary, non-profit coordination network. Any attempt to solicit compensation, payment, or financial reward in exchange for blood or organ donation through this platform is strictly prohibited and illegal under the Transplantation of Human Organs Act.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-12 bg-blue-50 dark:bg-slate-700/50 rounded-2xl p-6 border border-blue-100 dark:border-slate-600 text-center">
+            <p class="text-sm font-bold text-slate-700 dark:text-gray-300">
+                By continuing to use the LifeLink platform, you acknowledge that you have read, understood, and agree to be bound by these Privacy Policies and Terms of Service.
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
