@@ -88,13 +88,7 @@
                     <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-brand rounded-bl-xl"></div>
                     <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-brand rounded-br-xl"></div>
                     
-                    {% if profile.qr_code %}
-                        <img src="{{ profile.qr_code.url }}" alt="Secure QR Code" class="w-36 h-36 md:w-40 md:h-40 object-contain"/>
-                    {% else %}
-                        <div class="w-36 h-36 md:w-40 md:h-40 bg-gray-50 flex items-center justify-center text-gray-400 text-xs text-center p-4">
-                            QR Code Generation Pending
-                        </div>
-                    {% endif %}
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=LifeLink_Donor_{{ profile.user.username }}" alt="Secure QR Code" class="w-36 h-36 md:w-40 md:h-40 object-contain"/>
                 </div>
                 <p class="text-[10px] text-gray-400 font-bold uppercase mt-3 tracking-widest">Scan for Medical Validation</p>
             </div>
