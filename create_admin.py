@@ -30,10 +30,11 @@ from core.models import UserProfile  # Adjust 'core' if your app folder has a di
 print("--- Starting Database Seeding Process ---")
 
 # 1. Create Second Superadmin if it doesn't exist
-secondary_admin_username = 'backup_admin' 
+# 1. Create Second Superadmin if it doesn't exist
+secondary_admin_username = 'malleswari' 
 if not User.objects.filter(username=secondary_admin_username).exists():
     User.objects.create_superuser(
-        username=malleswari, 
+        username='malleswari', 
         email='malleswari@gmail.com', 
         password='987654321'
     )
