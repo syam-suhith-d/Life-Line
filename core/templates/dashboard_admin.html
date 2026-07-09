@@ -1,38 +1,145 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card-panel p-4 text-center">
-            <h2 class="text-brand">LifeLink National Registry Admin Control Panel</h2>
-            <p class="text-muted">Centralized system insights for registered donors, requests, and appointments.</p>
-            <div class="row g-3 mt-4">
-                <div class="col-md-4"><div class="card-panel p-3"><h5>Total Registered Donors</h5><p class="fs-3 fw-bold">{{ total_donors }}</p></div></div>
-                <div class="col-md-4"><div class="card-panel p-3"><h5>Total Organ Pledges</h5><p class="fs-3 fw-bold">{{ total_organ_donors }}</p></div></div>
-                <div class="col-md-4"><div class="card-panel p-3"><h5>Hospital Slots Booked</h5><p class="fs-3 fw-bold">{{ total_appointments }}</p></div></div>
+<div class="max-w-7xl mx-auto space-y-8 animate-fade-in-up">
+    
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 md:p-10 shadow-xl border border-slate-700 relative overflow-hidden flex flex-col md:flex-row items-center justify-between">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        <div class="relative z-10 text-center md:text-left mb-6 md:mb-0">
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-500/30 mb-4 inline-block">Security Level: Admin</span>
+            <h2 class="text-3xl font-extrabold text-white tracking-tight">National Registry Admin</h2>
+            <p class="text-slate-400 mt-2 font-medium">Centralized oversight of all platform data, donors, and operations.</p>
+        </div>
+        <div class="relative z-10 flex space-x-3">
+            <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition shadow-md border border-slate-600 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Export Report
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <div>
+                <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Total Donors</p>
+                <p class="text-3xl font-extrabold text-brand dark:text-blue-400">{{ total_donors }}</p>
             </div>
-            <div class="mt-4 text-start">
-                <h5>Recent System Records</h5>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead><tr><th>Donor</th><th>Role</th><th>Blood Group</th><th>Pledged Organ</th><th>City</th><th>Phone</th></tr></thead>
-                        <tbody>{% for donor in donors %}<tr><td>{{ donor.user.username }}</td><td>{{ donor.role }}</td><td>{{ donor.blood_group }}</td><td>{% if donor.organ_pledge != 'None' %}<span class="badge bg-success">{{ donor.organ_pledge }}</span>{% else %}<span class="text-muted">None</span>{% endif %}</td><td>{{ donor.city }}</td><td>{{ donor.phone }}</td></tr>{% endfor %}</tbody>
+            <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-brand dark:text-blue-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <div>
+                <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Organ Pledges</p>
+                <p class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">{{ total_organ_donors }}</p>
+            </div>
+            <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <div>
+                <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Slots Booked</p>
+                <p class="text-3xl font-extrabold text-amber-500 dark:text-amber-400">{{ total_appointments }}</p>
+            </div>
+            <div class="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-500 dark:text-amber-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+        
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="p-5 border-b border-gray-200 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-800/50">
+                <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand"></span> User Registry
+                </h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-slate-500 dark:text-gray-400">
+                    <thead class="text-xs text-slate-700 dark:text-gray-300 uppercase bg-slate-50 dark:bg-slate-700/50">
+                        <tr><th class="px-6 py-3">User</th><th class="px-6 py-3">Blood/Organ</th><th class="px-6 py-3">Location</th></tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                        {% for donor in donors|slice:":8" %}
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                            <td class="px-6 py-4 font-bold text-slate-900 dark:text-white">
+                                {{ donor.user.username }}<br>
+                                <span class="text-xs font-medium text-slate-400">{{ donor.phone }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="font-bold text-red-500">{{ donor.blood_group }}</span>
+                                {% if donor.organ_pledge != 'None' %}<br><span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded">{{ donor.organ_pledge }}</span>{% endif %}
+                            </td>
+                            <td class="px-6 py-4">{{ donor.city }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="3" class="px-6 py-8 text-center text-gray-400 font-medium">No users found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="p-5 border-b border-gray-200 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-800/50">
+                    <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span> Active Requests
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-500 dark:text-gray-400">
+                        <thead class="text-xs text-slate-700 dark:text-gray-300 uppercase bg-slate-50 dark:bg-slate-700/50">
+                            <tr><th class="px-6 py-3">Patient</th><th class="px-6 py-3">Hospital</th><th class="px-6 py-3">Status</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                            {% for request in requests|slice:":4" %}
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                                <td class="px-6 py-4 font-bold text-slate-900 dark:text-white">{{ request.patient_name }} <span class="text-xs text-red-500">({{ request.blood_group }})</span></td>
+                                <td class="px-6 py-4 truncate max-w-[150px]">{{ request.hospital_name }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 text-xs font-bold rounded-md {% if request.status == 'Pending' %}bg-amber-50 text-amber-600 dark:bg-amber-900/30{% else %}bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30{% endif %}">{{ request.status }}</span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="3" class="px-6 py-6 text-center text-gray-400 font-medium">No requests found.</td></tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
-                <div class="table-responsive mt-3">
-                    <table class="table table-striped">
-                        <thead><tr><th>Patient</th><th>Blood Group</th><th>Hospital</th><th>Status</th></tr></thead>
-                        <tbody>{% for request in requests %}<tr><td>{{ request.patient_name }}</td><td>{{ request.blood_group }}</td><td>{{ request.hospital_name }}</td><td>{{ request.status }}</td></tr>{% endfor %}</tbody>
-                    </table>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="p-5 border-b border-gray-200 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-800/50">
+                    <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span> Hospital Slots
+                    </h3>
                 </div>
-                <div class="table-responsive mt-3">
-                    <table class="table table-striped">
-                        <thead><tr><th>User</th><th>Hospital</th><th>Date</th><th>Slot</th></tr></thead>
-                        <tbody>{% for appointment in appointments %}<tr><td>{{ appointment.user.username }}</td><td>{{ appointment.hospital_name }}</td><td>{{ appointment.appointment_date }}</td><td>{{ appointment.time_slot }}</td></tr>{% endfor %}</tbody>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-500 dark:text-gray-400">
+                        <thead class="text-xs text-slate-700 dark:text-gray-300 uppercase bg-slate-50 dark:bg-slate-700/50">
+                            <tr><th class="px-6 py-3">User</th><th class="px-6 py-3">Hospital</th><th class="px-6 py-3">Schedule</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                            {% for app in appointments|slice:":4" %}
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                                <td class="px-6 py-4 font-bold text-slate-900 dark:text-white">{{ app.user.username }}</td>
+                                <td class="px-6 py-4 truncate max-w-[150px]">{{ app.hospital_name }}</td>
+                                <td class="px-6 py-4 text-xs font-medium">
+                                    {{ app.appointment_date }}<br><span class="text-brand">{{ app.time_slot }}</span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="3" class="px-6 py-6 text-center text-gray-400 font-medium">No appointments found.</td></tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 {% endblock %}
