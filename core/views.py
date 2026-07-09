@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+from django.core.paginator import Paginator
 from .models import UserProfile, BloodRequest, OrganPledge, OrganRequest, HospitalAppointment, Feedback, DonationCamp, Notification
 from .forms import RegistrationForm, BloodRequestForm, OrganPledgeForm, OrganRequestForm, SmartEligibilityForm, HospitalAppointmentForm, FeedbackForm
 
@@ -66,24 +67,9 @@ def logout_view(request):
     return redirect('home')
 
 
+# 1. The Normal Dashboard (Now available to everyone, including Admins)
 @login_required
 def dashboard_view(request):
-    if request.user.is_staff or request.user.is_superuser:
-        total_donors = UserProfile.objects.filter(role='Donor').count()
-        total_organ_donors = UserProfile.objects.exclude(organ_pledge='None').count()
-        total_appointments = HospitalAppointment.objects.count()
-        donors = UserProfile.objects.filter(role='Donor')
-        requests = BloodRequest.objects.all()
-        appointments = HospitalAppointment.objects.all()
-        return render(request, 'dashboard_admin.html', {
-            'total_donors': total_donors,
-            'total_organ_donors': total_organ_donors,
-            'total_appointments': total_appointments,
-            'donors': donors,
-            'requests': requests,
-            'appointments': appointments,
-        })
-
     profile = get_object_or_404(UserProfile, user=request.user)
     appointments = HospitalAppointment.objects.filter(user=request.user).order_by('appointment_date')
     requests = BloodRequest.objects.filter(user=request.user).order_by('-id')[:5]
@@ -91,6 +77,35 @@ def dashboard_view(request):
         'profile': profile,
         'appointments': appointments,
         'requests': requests,
+    })
+    
+# 2. The Brand New Admin-Only Dashboard View
+@login_required
+def admin_dashboard_view(request):
+    # Kick out normal users if they try to access this URL
+    if not (request.user.is_staff or request.user.is_superuser):
+        return redirect('dashboard')
+        
+    total_donors = UserProfile.objects.filter(role='Donor').count()
+    total_organ_donors = UserProfile.objects.exclude(organ_pledge='None').count()
+    total_appointments = HospitalAppointment.objects.count()
+    
+    # Pagination Logic
+    donor_list = UserProfile.objects.filter(role='Donor').order_by('-id')
+    paginator = Paginator(donor_list, 10)
+    page_number = request.GET.get('page')
+    donors = paginator.get_page(page_number)
+    
+    requests = BloodRequest.objects.all().order_by('-id')
+    appointments = HospitalAppointment.objects.all().order_by('-appointment_date')
+    
+    return render(request, 'dashboard_admin.html', {
+        'total_donors': total_donors,
+        'total_organ_donors': total_organ_donors,
+        'total_appointments': total_appointments,
+        'donors': donors,
+        'requests': requests,
+        'appointments': appointments,
     })
 
 
