@@ -49,9 +49,9 @@
                 <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                     {% if profile.role == 'Donor' %}
                         <p class="text-xs text-slate-400 dark:text-gray-500 font-bold mb-3 uppercase tracking-wider">Digital ID Key</p>
-                        {% if profile.qr_code %}
+                        {% if profile.role == 'Donor' %}
                             <div class="p-3 bg-white rounded-2xl inline-block shadow-md border border-gray-200">
-                                <img src="{{ profile.qr_code.url }}" alt="QR Code" class="w-32 h-32"/>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LifeLink_Donor_{{ profile.user.username }}" alt="Digital ID QR" class="w-32 h-32"/>
                             </div>
                         {% else %}
                             <div class="w-full py-8 bg-slate-50 dark:bg-slate-700 rounded-xl border-2 border-dashed border-slate-300 dark:border-gray-600 text-slate-400 font-medium text-sm">
