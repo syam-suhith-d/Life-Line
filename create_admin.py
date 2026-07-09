@@ -53,12 +53,12 @@ if UserProfile.objects.filter(role='Donor').count() < 5:
     cities = ['Hyderabad', 'Visakhapatnam', 'Vijayawada', 'Tirupati', 'Guntur', 'Nellore', 'Rajahmundry']
     
     mock_names = [
-        ('mukesh_k', 'Mukesh Kumar'), ('srinivas_m', 'Srinivas Rao'), 
-        ('priya_sharma', 'Priya Sharma'), ('divya_t', 'Divya Teja'),
-        ('kiran_b', 'Kiran Babu'), ('sandeep_v', 'Sandeep Varma'),
-        ('harika_p', 'Harika P.'), ('syam', 'Syam'),
-        ('anjali_s', 'Anjali Singh'), ('venkat_r', 'Venkat Ramana'),
-        ('ramesh_g', 'Ramesh G.'), ('kavitha_m', 'Kavitha Murthy')
+        ('mukesh', 'Mukesh'), ('srinivas', 'Srinivas'), 
+        ('priya', 'Priya'), ('divya', 'Divya'),
+        ('kiran', 'Kiran'), ('sandeep', 'Sandeep'),
+        ('harika', 'Harika'), ('syam', 'Syam'),
+        ('anjali', 'Anjali'), ('venkat', 'Venkat'),
+        ('ramesh', 'Ramesh'), ('kavitha', 'Kavitha')
     ]
 
     for index, (username, full_name) in enumerate(mock_names, start=1):
@@ -67,7 +67,7 @@ if UserProfile.objects.filter(role='Donor').count() < 5:
             user = User.objects.create_user(
                 username=username,
                 email=f"{username}@example.com",
-                password='DonorPassword123!'
+                password='123456789'
             )
             
             # Split full name for first/last name fields if needed
