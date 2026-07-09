@@ -130,7 +130,7 @@
                 <div class="flex items-center space-x-3 sm:space-x-5">
                     
                     {% if user.is_authenticated %}
-                        <form action="{% url 'search_donors' %}" method="GET" class="hidden md:flex relative group w-64 lg:w-80 h-10">
+                        <form action="{% url 'search_donors' %}" method="GET" class="hidden md:flex relative group w-48 lg:w-64 h-10">
                             <input type="text" name="q" placeholder="Quick donor search..." class="w-full pl-5 pr-12 py-2 bg-slate-50 dark:bg-slate-700/50 border border-gray-200 dark:border-transparent rounded-full text-sm font-medium focus:bg-white focus:border-brand focus:ring-2 focus:ring-blue-100 dark:focus:bg-slate-900 transition-all outline-none text-slate-800 dark:text-white shadow-inner focus:shadow-sm">
                             <button type="submit" class="absolute right-1 top-1 bottom-1 px-3 bg-brand hover:bg-brandHover rounded-full text-white flex items-center justify-center transition-colors shadow-sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -170,29 +170,53 @@
                         </div>
                     {% endif %}
 
-                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
 
                     {% if user.is_authenticated %}
                         
-                        {% if user.is_staff %}
-                            <a href="/admin/" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold rounded-full transition shadow-sm border mr-2 text-slate-700 bg-slate-100 hover:bg-slate-200 border-slate-200 dark:text-gray-300 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700">
-                                Admin Database
-                            </a>
-                            <a href="{% url 'admin_dashboard' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold rounded-full transition shadow-sm border mr-2 {% if request.resolver_match.url_name == 'admin_dashboard' %}bg-brand text-white border-brand dark:bg-blue-600 dark:border-blue-600 dark:text-white{% else %}text-brand dark:text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-slate-800 dark:hover:bg-slate-700 border-blue-100 dark:border-slate-700{% endif %}">
-                                Ops Center
-                            </a>
-                        {% endif %}
-
                         <a href="{% url 'dashboard' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold rounded-full transition shadow-sm border mr-2 {% if request.resolver_match.url_name == 'dashboard' %}bg-brand text-white border-brand dark:bg-blue-600 dark:border-blue-600 dark:text-white{% else %}text-brand dark:text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-slate-800 dark:hover:bg-slate-700 border-blue-100 dark:border-slate-700{% endif %}">
                             Dashboard
                         </a>
 
-                        <a href="{% url 'logout' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 dark:text-red-400 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-full transition shadow-sm border border-red-100 dark:border-red-900/50 mr-1">
-                            Sign Out
-                        </a>
-                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-brandHover text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-white dark:border-slate-700 cursor-pointer hover:scale-105 transition-transform" title="Logged in as {{ user.username }}">
-                            {{ user.username|make_list|first|upper }}
+                        {% if user.is_staff %}
+                            <a href="{% url 'admin_dashboard' %}" class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm font-bold rounded-full transition shadow-sm border bg-brand text-white border-brand hover:bg-brandHover mr-2">
+                                Admin Hub
+                            </a>
+                        {% endif %}
+
+                        <div class="relative group ml-1 sm:ml-2">
+                            <div class="flex items-center gap-1.5 cursor-pointer">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-brandHover text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-white dark:border-slate-700 group-hover:scale-105 transition-transform">
+                                    {{ user.username|make_list|first|upper }}
+                                </div>
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-brand dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            
+                            <div class="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-50">
+                                <div class="p-4 border-b border-gray-100 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-800/50 rounded-t-xl">
+                                    <p class="text-sm font-extrabold text-slate-800 dark:text-white truncate">{{ user.username }}</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-400 mt-0.5 truncate">{{ user.email|default:"User Account" }}</p>
+                                </div>
+                                
+                                <div class="p-2">
+                                    {% if user.is_staff %}
+                                    <a href="/admin/" class="flex items-center px-3 py-2 text-sm font-semibold text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4 mr-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                                        Raw Database
+                                    </a>
+                                    <div class="h-px bg-gray-100 dark:bg-gray-700 my-1.5"></div>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'logout' %}" class="flex items-center px-3 py-2 text-sm font-bold text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4 mr-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
                     {% else %}
                         <a href="{% url 'login' %}" class="text-sm font-bold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition px-2">Sign In</a>
                         <a href="{% url 'register' %}" class="hidden sm:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-brand rounded-full hover:bg-brandHover transition shadow-md hover:-translate-y-0.5 transform">Join Now</a>

@@ -70,9 +70,21 @@ def logout_view(request):
 # 1. The Normal Dashboard (Now available to everyone, including Admins)
 @login_required
 def dashboard_view(request):
-    profile = get_object_or_404(UserProfile, user=request.user)
+    # This safely gets the profile, or automatically creates a placeholder one for admins!
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'role': 'Admin',
+            'blood_group': 'N/A',
+            'organ_pledge': 'None',
+            'city': 'System Admin',
+            'phone': 'N/A'
+        }
+    )
+    
     appointments = HospitalAppointment.objects.filter(user=request.user).order_by('appointment_date')
     requests = BloodRequest.objects.filter(user=request.user).order_by('-id')[:5]
+    
     return render(request, 'dashboard.html', {
         'profile': profile,
         'appointments': appointments,
@@ -96,8 +108,9 @@ def admin_dashboard_view(request):
     page_number = request.GET.get('page')
     donors = paginator.get_page(page_number)
     
-    requests = BloodRequest.objects.all().order_by('-id')
-    appointments = HospitalAppointment.objects.all().order_by('-appointment_date')
+    # Grab only the 5 most recent requests and appointments to save server memory!
+    requests = BloodRequest.objects.all().order_by('-id')[:5]
+    appointments = HospitalAppointment.objects.all().order_by('-appointment_date')[:5]
     
     return render(request, 'dashboard_admin.html', {
         'total_donors': total_donors,
