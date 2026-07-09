@@ -9,7 +9,7 @@ services:
     name: lifelink
     plan: free  # <--- This is the crucial addition!
     runtime: python
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python create_admin.py"
     startCommand: "gunicorn lifelink.wsgi:application"
     envVars:
       - key: DATABASE_URL
